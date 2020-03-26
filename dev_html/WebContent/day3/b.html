@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+	function confirm() {
+		var v_msg = document.getElementById("d_msg");
+		//v_msg.innerText="after v_msg:"+v_msg;
+		//v_msg.innerHTML="<font color='red'><h1>after</h1></font> v_msg:"+v_msg;  //innerHTML - 태그를 해석해서 출력
+		v_msg.innerText="<font color='red'><h1>after</h1></font> v_msg:"+v_msg;  //innerText - 태그를 텍스트 그대로 출력
+	}
+</script>
+</head>
+<body>
+<script type="text/javascript">
+//before
+	var v_msg = document.getElementById("d_msg");
+
+</script>
+<div id="d_msg">당신의 아이디를 입력하세요.[안내]</div>      <!-- div태그? -->
+<script type="text/javascript">
+//after
+	var v_msg = document.getElementById("d_msg");
+	//v_msg.innerText="after v_msg:"+v_msg;
+	console.log("after v_msg:"+v_msg);  //msg = [object HTMLDivElement]    //자바와 달리 위치가 중요
+</script>
+<button onclick="confirm()">확인</button>
+</body>
+</html>

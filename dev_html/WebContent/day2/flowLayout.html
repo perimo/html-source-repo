@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>floatLayout.html[float 속성을 이용한 레이아웃]</title>
+<style type="text/css">
+	#header {
+		width: 950px; height: 80px;
+		background-color: #0054FF;
+	}
+	#navigation {
+		width: 950px; height: 50px;
+		background-color: #B2EBF4;
+	}
+	#wrap {
+		overflow: hidden;
+	}
+	#aside {
+		width: 200px; height: 450px;
+		background-color: #FFFF48;
+		float: left;
+/* 		border-right: 20px solid white; */
+	}
+	#section {
+		width: 750px; height: 450px;
+		background-color: #CEF279;
+		float: left;
+	}
+	#footer {
+		width: 950px; height: 50px;
+		background-color: #BDBDBD;
+	}
+</style>
+</head>
+<body>
+	<div id="header"><h1>Header</h1></div>
+	<div id="navigation"><h1>Navigation</h1></div>
+	<div id="wrap">
+		<div id="aside">
+			<h1>Aside</h1>
+		</div>
+		<div id="section">
+			<h1>Section</h1>
+		</div>
+	</div>
+	<div id="footer"><h1>Footer</h1></div>	
+</body>
+</html>
+
+
+파랑-#0054FF
+민트-#B2EBF4
+노랑-#FFFF48
+연두-#CEF279
+회색-#BDBDBD
+보라-A566FF

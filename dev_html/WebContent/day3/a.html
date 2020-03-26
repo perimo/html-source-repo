@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>자바스크립트 위치</title>
+<!-- header 영역 
+전역변수 선언
+함수 선언 - 따로 불러줘야 실행됨
+-->
+<script type="text/javascript">
+	var mem_id="apple"; //전역변수 - head영역
+	function test() {
+		alert(mem_id + "test 호출 성공")
+	}
+</script>
+</head>
+<body>
+<!-- body 영역
+즉시 실행됨
+ -->
+<script type="text/javascript">
+	test(); //body에서 이렇게 호출해야 실행 됨
+	document.write("안녕");
+</script>
+</body>
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+	li {list-style: none;} /* 링크 주소 앞에 점 뺴는 코드 */
+	a {text-decoration: none}
+	#main_header{
+		background: #1D4088;
+		color: white;
+		border-bottom: 5px solid black;
+	}
+	#main_nav {
+		overflow: hidden;
+	}
+	#main_nav > ul.left{
+		overflow: hidden;
+		float: left;
+	}
+</style>
+</head>
+<body>
+	<center> <!-- 가운데 정렬 태그 -->
+		<table border="0" borderColor="red" width="950px" height="580px">
+			<!------------- header 영역         ----------------->
+			<tr height="50px"><td id="main_header"><h1>header</h1></td></tr>
+			<!------------- navigation 영역 --------------===>
+			<tr height="50px">
+			<td>
+				<nav id="main_nav">
+					<ul class="left">
+						<li><a href="#">Java</a></li>
+						<li><a href="#">Oracle</a></li>
+						<li><a href="#">HTML5</a></li>
+						<li><a href="#">JSON</a></li>
+						<li><a href="#">CSS3</a></li>
+					</ul>
+				</nav>
+			</td>
+			</tr>
+			<!------------- body 영역             --------------==->
+			<tr>
+				<td>
+					<table border="0" borderColor="green" width="950px" height="450px">        <!-- 컨트롤 쉬프트 F  : 자동정렬 -->
+						<tr>
+							<td width="200px" height="100%" valign="top"> <!-- 위아래 간격 맞춰주는 코드 valign="top" -->
+							<h1>aside</h1>
+								Lorem ipsum dolor sit amet,
+								consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+								labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+								nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+								commodo consequat. Duis aute irure dolor in reprehenderit in
+								voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+								Excepteur sint occaecat cupidatat non proident, sunt in culpa
+								qui officia deserunt mollit anim id est laborum.</td>
+							<td width="750px" height="100%" valign="top">
+							<h1>section</h1>
+								Lorem ipsum dolor sit amet,
+								consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+								labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+								nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+								commodo consequat. Duis aute irure dolor in reprehenderit in
+								voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+								Excepteur sint occaecat cupidatat non proident, sunt in culpa
+								qui officia deserunt mollit anim id est laborum. Curabitur
+								pretium tincidunt lacus. Nulla gravida orci a odio. Nullam
+								varius, turpis et commodo pharetra, est eros bibendum elit, nec
+								luctus magna felis sollicitudin mauris. Integer in mauris eu
+								nibh euismod gravida. Duis ac tellus et risus vulputate
+								vehicula. Donec lobortis risus a elit. Etiam tempor. Ut
+								ullamcorper, ligula eu tempor congue, eros est euismod turpis,
+								id tincidunt sapien risus a quam. Maecenas fermentum consequat
+								mi. Donec fermentum. Pellentesque malesuada nulla a mi. Duis
+								sapien sem, aliquet nec, commodo eget, consequat quis, neque.
+								Aliquam faucibus, elit ut dictum aliquet, felis nisl adipiscing
+								sapien, sed malesuada diam lacus eget erat. Cras mollis
+								scelerisque nunc. Nullam arcu. Aliquam consequat. Curabitur
+								augue lorem, dapibus quis, laoreet et, pretium ac, nisi. Aenean
+								magna nisl, mollis quis, molestie eu, feugiat in, orci. In hac
+								habitasse platea dictumst.</td>
+						</tr>
+					</table>
+
+				</td>
+			</tr>
+			<!------------- footer 영역         ----------------->
+			<tr height="30px" width="950"><td><h1>footer</h1></td></tr>
+		</table>
+	</center>
+</body>
+</html>

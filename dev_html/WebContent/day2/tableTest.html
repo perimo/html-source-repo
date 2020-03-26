@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<!--
+web 1.0에서는 테이블을 활용해서 페이지의 레이아웃을 작업 
+web 2.0(UX,반응형웹[테블릿,모바일,PC...]) - DIV(공간분할 역할), SPAN(공간분할 역할,CSS3)
+상대경로
+../현재 내가 바라보는 폴더 바로 위 - WebContent   -- 점 두개(..)는 내 가 현재 있는 폴더의 상위 폴더
+./현재 내가 바라보는 폴더 - day2 ./day2/tavleTest.html or /js/jquery.min.js -- 점 한개(.)는 내가 현재 속해 있는 폴더
+절대경로
+프로토콜:도메인(192.168.0.28)/프로젝트이름/업무이름폴더/파일명/html, 파일명.htm, 파일명.jsp
+http://localhost:8000/js/jquery.min.js
+-->
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Table태그</title>
+<link rel="stylesheet" type="text/css" href="http://localhost:8000/themes/default/easyui.css">
+<link rel="stylesheet" type="text/css" href="http://localhost:8000/themes/icon.css">
+<link rel="stylesheet" type="text/css" href="http://localhost:8000/demo/demo.css">
+<script type="text/javascript" src="http://localhost:8000/js/jquery.min.js"></script> <!--절대경로  -->
+<!-- <script type="text/javascript" src="../js/jquery.min.js"></script> -->
+<script type="text/javascript" src="http://localhost:8000/js/jquery.easyui.min.js"></script>
+</head>
+<body>
+<script type="text/javascript">
+/*
+ $는 jquery를 쓰는 대신 사용하는 특수 기호이다. - jquery에서 지원하고 있다.
+ ready함수는 DOM(Document Object Model)구성이 완료 되었을 때를 감지하는 이벤트 핸들러 함수이다.
+ DOM 구성이 완료되어야 javascript언어를 활용하여 그 태그 하나하나에 접근할 수 있다.
+ 같은 서버에 있는 페이지는 잘 불러오고 화면에도 적용되지만 다른 서버에 있는 json파일은 처리 안해줌.
+ */
+	$(document).ready(function(){
+		alert("DOM구성이 완료 되었을 때");
+		$("#dg_dept").datagrid({
+			url:'./jsonDeptList.jsp'
+		});
+	});
+</script>
+	<!-- <table class="easyui-datagrid" data-options="url:'../json/dept.json'"> 로컬안에서 실행(아래줄과 같은 주소)-->
+	<table id="dg_dept" class="easyui-datagrid">
+		<thead>
+            <tr>
+            	<!-- <th width="100">순번</th> --> <!-- 이게 표준이지만 아래 easyUI에서 변형한 방법을 썼기떄문에 형식을 아래처럼 맞춰준다 -->
+            	<th data-options="field:'rno',width:100">순번</th> <!-- 대소문자 구분한다 -->
+                <th data-options="field:'deptno',width:80">부서번호</th>
+                <th data-options="field:'dname',width:200">부서명</th>
+                <th data-options="field:'loc',width:80,align:'center'">지역</th>
+            </tr>
+        </thead>
+	</table>
+</body>
+</html>

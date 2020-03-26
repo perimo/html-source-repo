@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</style>
+
+<!-- 공통으로 사용할 수 있는 스타일 초기화 시작 -->
+	<style type="text/css">
+		li {list-style: none;} /* 리스트앞에 구슬 들어가있는거 없애기 */
+		a {text-decoration: none} /* a태그에 밑줄 그어져있는것 없애기 */
+	</style>
+<!-- 공통으로 사용할 수 있는 스타일 초기화 끝    -->
+<!-- main header 영역 스타일 초기화 시작 -->
+	<style type="text/css">
+		#main_header {
+		height: 80px;
+		padding: 10px; /* 헤더부분 박스안에 글씨 앞쪽에 띄우기 */
+		border-bottom: 1px solid black;
+		background-color: #B2EBF4;
+		color: white;
+	}
+	#main_gnb {
+		overflow: hidden;
+		background-color: #CEF279;
+		color: black;
+	}
+	/* 후손 선택자 : '>'가 없다 a에서 다 적용*/
+	#main_gnb a {
+		color: white;
+		padding: 10px 20px;
+		font-weight: bold;
+		border-left: 1px solid black;
+		border-right: 1px solid black;
+	}
+	#main_gnb > ul.left {
+		float: left;
+	}
+	#main_gnb > ul.right {
+		float: right;
+	}
+	#main_gnb > ul.left > li {
+		width: 130px;
+		float: left;
+	}
+	#main_gnb > ul.right > li {
+		width: 110px;
+		float: right;
+	}
+	</style>
+<!-- main header 영역 스타일 초기화 끝    -->
+
+
+</head>
+<body>
+
+	<center>
+		<table border="0" borderColor="red" width="950px" height="580px">
+			<!------------- header 영역         ----------------->
+			<tr height="50px"><td id="main_header"><h1>header</h1></td></tr>
+			<!------------- navigation 영역 ----------------->
+			<tr height="50px">
+				<td>
+					<nav id="main_gnb">
+						<ul class="left">
+							<li><a href="#">Java수업</a></li>
+							<li><a href="#">Oracle수업</a></li>
+							<li><a href="#">HTML수업</a></li>
+						</ul>							
+						<ul class="right">
+							<li><a href="#">로그인</a></li>
+							<li><a href="#">회원가입</a></li>
+						</ul>
+					</nav>
+				</td>
+			</tr>
+			<!------------- body 영역             ----------------->
+			<tr>
+				<td>
+					<table border="0" borderColor="green" width="950px" height="450px">        <!-- 컨트롤 쉬프트 F  : 자동정렬 -->
+						<tr>
+							<td width="200px" height="100%" valign="top">
+							<h1>aside</h1>
+								Lorem ipsum dolor sit amet,
+								consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+								labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+								nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+								commodo consequat. Duis aute irure dolor in reprehenderit in
+								voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+								Excepteur sint occaecat cupidatat non proident, sunt in culpa
+								qui officia deserunt mollit anim id est laborum.</td>
+							<td width="750px" height="100%" valign="top">
+							<h1>section</h1>
+								Lorem ipsum dolor sit amet,
+								consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+								labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+								nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+								commodo consequat. Duis aute irure dolor in reprehenderit in
+								voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+								Excepteur sint occaecat cupidatat non proident, sunt in culpa
+								qui officia deserunt mollit anim id est laborum. Curabitur
+								pretium tincidunt lacus. Nulla gravida orci a odio. Nullam
+								varius, turpis et commodo pharetra, est eros bibendum elit, nec
+								luctus magna felis sollicitudin mauris. Integer in mauris eu
+								nibh euismod gravida. Duis ac tellus et risus vulputate
+								vehicula. Donec lobortis risus a elit. Etiam tempor. Ut
+								ullamcorper, ligula eu tempor congue, eros est euismod turpis,
+								id tincidunt sapien risus a quam. Maecenas fermentum consequat
+								mi. Donec fermentum. Pellentesque malesuada nulla a mi. Duis
+								sapien sem, aliquet nec, commodo eget, consequat quis, neque.
+								Aliquam faucibus, elit ut dictum aliquet, felis nisl adipiscing
+								sapien, sed malesuada diam lacus eget erat. Cras mollis
+								scelerisque nunc. Nullam arcu. Aliquam consequat. Curabitur
+								augue lorem, dapibus quis, laoreet et, pretium ac, nisi. Aenean
+								magna nisl, mollis quis, molestie eu, feugiat in, orci. In hac
+								habitasse platea dictumst.</td>
+						</tr>
+					</table>
+
+				</td>
+			</tr>
+			<!------------- footer 영역         ----------------->
+			<tr height="30px" width="950"><td><h1>footer</h1></td></tr>
+		</table>
+	</center>
+</body>
+</html>
