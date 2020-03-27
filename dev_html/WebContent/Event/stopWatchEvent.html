@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>스톱워치 2개 구현</title>
+</head>
+<body>
+<!-- 버튼에 대한 이벤트처리 - 자바스크립트로 -->
+<script type="text/javascript">
+	window.onload = function() {
+		var btn_a = document.getElementById("btn_a");
+		var btn_b = document.getElementById("btn_b");
+		var counter_a = document.getElementById("counter_a");
+		var counter_b = document.getElementById("counter_b");
+		/* 버튼에 대한 이벤트 연결 */
+		/* 자바스크립트에서는 속성에 대한 값을 초기화 할 때 더블 쿼테이션 혹은 싱글 쿼테이션을
+			붙이지 않으면 변수로 취급함. - 주의 할 것. */
+		btn_a.onclick = function() {
+			//alert("button A 호출")
+			counter_a.innerHTML = Number(counter_a.innerHTML)+1;
+		}
+		btn_b.onclick = function() {
+			//alert("button B 호출")
+			counter_b.innerHTML = Number(counter_a.innerHTML)+1;
+		}
+	}
+</script>
+<button id="btn_a">ButtonA</button>
+<button id="btn_b">ButtonB</button>
+<h1>ButtonA - <span id="counter_a">0</span></h1>
+<h1>ButtonB - <span id="counter_b">0</span></h1>
+</body>
+</html>

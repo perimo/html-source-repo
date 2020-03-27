@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>현재 시간</title>
+</head>
+<body>
+<script type="text/javascript">
+	window.onload = function() {/* 이름없는 함수를 딱 한번만 호출 할거임  */
+		var clock = document.getElementById('clock');
+		setInterval(function(){
+			clock.innerHTML = new Date().toString();
+		},1000);
+	};
+</script>
+<h1 id="clock">현재 시간</h1>
+</body>
+</html>

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+	<script type="text/javascript">
+		function whenClick(e) {
+			alert("클릭====> "+e)
+		}
+		function whenKeyUp(e) {
+			alert("키보드를 눌렀다가 해제할 때====> "+e)
+		}
+	</script>
+</head>
+<body> 
+	<h1 onclick="whenClick(event)">CLick</h1>
+	<input type="text" onkeyup = "whenKeyUp(event)">
+</body>
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>onload이벤트 활용</title>
+</head>
+<body>
+<!-- 
+	dom이 먼저? 아니면 event처리가 먼저? -> 당연히 dom이 먼저!
+ -->
+ <!-- before -->
+ <script type="text/javascript">
+ 	var be = document.getElementById("header");
+ 	alert("before==>"+be); //be -> null
+ </script>
+	<h1 id="header">Click</h1>
+<!-- after -->
+ <script type="text/javascript">
+ 	var be = document.getElementById("header");
+ 	alert("after==>"+be); //be -> HTML Object
+ </script>
+</body>
+</html>

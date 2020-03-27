@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>ready demo</title>
+  <style>
+  p {color: red;}
+  div {color: blue;}
+  #c_test h1 {color: pink;}
+  #c_test > h1 {color: yellow;}
+  .d_test h1 {color: brown;}
+  .d_test h1 {color: black;}
+  
+  </style>  <!-- jquery를 여기에 import하면 대신에 $로 쓸 수 있다. -->
+  <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+  <script>
+ 
+  $(function() {
+    //$( "div" ).text( "The DOM is now loaded and can be manipulated." );
+  });
+ 
+  </script>
+ 
+</head>
+<body>
+ 
+<!-- <p>Not loaded yet.</p> -->
+<div>Not loaded yet.</div>
+<div id="c_test"><h1>Hello World</h1></div>
+<div class="d_test"><h1>Hello World</h1></div>
+ 
+</body>
+</html>
