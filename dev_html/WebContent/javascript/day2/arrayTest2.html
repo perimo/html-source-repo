@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+<!-- 2차 배열 -->
+<script type="text/javascript">
+	//[{"주연배우":"송강호","나이":50,"영화제목":"기생충"}] /* JSON 포맷 */
+	var movie = [
+					["송강호",50,"타이타닉"]
+				   ,["박지후",30,"벌새"]
+				   ,["김나연",40,"우리집"]
+				];
+	for (var i = 0; i < movie.length; i++) {
+		for (var j = 0; j < movie[i].length; j++) {
+			//document.write(i+", "+j);			
+			document.write(movie[i][j]);			
+		}//end of inner for
+			document.write("<br>");			
+	}//end of outter for
+</script>
+</body>
+</html>

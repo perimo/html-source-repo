@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>json파일 테스트하기 - json포맷으로 출력하기</title>
+<script type="text/javascript" src="http://code.jquery.com/jquery-3.4.1.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC7W01KcM3qw0vcd-jEcYFyiEpW6Hwbzus"></script>
+</head>
+<body>
+	<div id="d_map" style="width:800px; height:600px;"></div>
+	<script type="text/javascript">
+		var map = new google.maps.Map(document.getElementById('d_map'),{
+			zoom: 14
+		   ,center: new google.maps.LatLng(37.478785, 126.878669) //첫 화면 센터에 보여줄 위도,경도 설정
+		   ,mapTypeId: google.maps.MapTypeId.ROADMAP //첫 화면으로 로드(ROADMAP)맵으로 보여줄지 위성(SATELLITE)맵으로 보여줄지 설정//디폴트는 로드맵
+		});
+		var infoWindow = new google.maps.InfoWindow(); //infoWindow - 말풍선 보여주는 애.
+		var marker; //5개가 출력이 돼야함.
+		var i; //마커 생성시 부여한 인덱스값
+		$.ajax({
+			url: 'jsonMapList.jsp'
+			,dataType: 'json'
+			,success:function(data){
+				//$("#d_map").text(data);//object로 보여줌
+				//insert here - data를 오브젝트가 아니라 스트링으로 받아오기
+				var result = JSON.stringify(data); //Object를 String 타입으로 덩어리로 받아오기
+				//$("#d_map").text(result);
+				var jsonDoc = JSON.parse(result); //result를 한번더 파싱 작업을 통해 덩어리에서 하나씩 값을 받아온다.
+				for (var i = 0; i < jsonDoc.length; i++) {
+					//alert(jsonDoc[i].res_name); //i는 로우니까 바뀐 로우에 대한 값을 보여준다.
+					marker = new google.maps.Marker({
+						id: i
+					   ,position: new google.maps.LatLng(jsonDoc[i].lat,jsonDoc[i].lng)
+					   ,map: map
+					   ,title: jsonDoc[i].res_name
+					});
+					google.maps.event.addListener(marker, 'click',(function(marker,i){
+						return function() {
+							infoWindow.setContent('<b>'+jsonDoc[i].res_name+'</b>'); //말풍선에 내용을 넣는 함수
+							infoWindow.open(map,marker);
+						}//////end of 반환함수
+					})(marker,i));
+					if (marker) {//자바스크립트 문법에서는 0이 아니면 모두 true.
+						marker.addListener('click',function(){//마커를 클릭했을시.
+						map.setZoom(15);//맵을 14->15로 줌하고
+							map.setCenter(this.getPosition()); //지금 지역으로 포지션을 변경해준다.-getPosition()함수
+						});
+					}
+				}//////end of for
+			}
+		});
+	</script>
+</body>
+</html>

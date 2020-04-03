@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<!-- 1차 배열 -->
+<script type="text/javascript">
+ 	var arrWeek = ["일","월","화","수","목","금","토"];
+//	document.write(arrWeek[1],"요일<br>");  //<br> - 줄바꿈처리
+//	document.write(arrWeek[5],"요일","<br>");
+	for (var i = 0; i < arrWeek.length; i++) {
+		if (i==0 | i==6) {
+			//alert("i: "+i);
+			document.write("주말","<br>");
+		}
+		else {
+		document.write(arrWeek[i],"요일","<br>");
+		}
+	}
+</script>
+</body>
+</html>

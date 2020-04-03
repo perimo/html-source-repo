@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+	function account(){
+		document.write("<table border='1' width='450'>");
+		for (var i = 0; i < 3; i++) {
+		document.write("<tr><td>&nbsp;&nbsp;&nbsp;</td></tr>"); //&nbsp; ->띄워쓰기하는 코드
+		}
+		document.write("</table>");
+	}
+</script>
+</head>
+<body>
+<!-- 
+document 내장객체는 tableTest.html을 가리킨다.
+자바코드 영역
+자바스크립트 코드 영역
+CSS 코드 영역
+html 코드 영역
+학습목표
+나는 document내장 객체를 활용하여 요구사항을 만족하는 화면을 처리할 수 있다.
+ -->
+<script type="text/javascript">
+	function account(pstart,pend){
+		//alert(pstart+" , "+pend);
+		//헤더 처리
+		document.write("<center><h1>구구단</h1><table width='70%'><tr>");
+		//단수 처리
+		for (var i = pstart; i <= pend; i++) {
+			document.write("<td bgcolor='yellow' width='80 'height='50' align='center'><b>"+i+"단</b></td>")
+			if(i==pend) document.write("</tr><tr>");
+		}		
+		//구구단 계산 처리
+		for (var k = pstart; k <= pend; k++) {
+			document.write("<td bgcolor='pink' width='80' height='50' align='center'>");
+			for (var j = 2; j <= 9; j++) {
+				document.write(k,"*",j,"=",k*j,"<br>");
+			}
+			document.write("</td>")
+		}
+		document.write("</tr></table></center>"); //</tr></table></center> 태그를 여기서 닫아줘야한다.
+	}
+</script>
+<form id="f_gugudan">
+구구단 보기 : 
+시작단 : <input type="text" size="4" name="txtStart"/>
+끝 단: <input type="text" size="4" name="txtEnd"/>
+<button onclick="javascript:account(document.getElementById('f_gugudan').txtStart.value
+								   ,document.getElementById('f_gugudan').txtEnd.value)">구구단 보기</button>
+
+</form>
+</body>
+</html>

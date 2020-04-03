@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>증감 연산자</title>
+</head>
+<body>
+<script type="text/javascript">
+	var a = 1;
+	document.write("<h2><font color='blue' size='19'</font></h2>");
+	document.write("b= " + ++a + "<br>"); //2
+	document.write("b= " + a++ + "<br>"); //2
+	document.write("b= " + a   + "<br>"); //3
+	document.write("b= " + --a + "<br>"); //2
+	document.write("b= " + a-- + "<br>"); //2
+	document.write("b= " + ++a + "<br>"); //2
+	document.write("b= " + a   + "<br>"); //2
+</script>
+<hr>
+<script type="text/javascript">
+	var x = 10;
+	y=x++; document.write("<h2><font color='blue' size='19'</font></h2>"); //y=10, x=11
+	x=++y; document.write("x= " + x + "y= " + y + "<br>"); //x=11, y=11
+	y=x--; document.write("x= " + x + "y= " + y + "<br>"); //x=10, y=11
+</script>
+
+</body>
+</html>

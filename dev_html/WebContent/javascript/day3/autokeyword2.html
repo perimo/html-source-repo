@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+	<style type="text/css">
+		div#d_result {
+			position : absolute; /* 이 옵션이 있어야지 좌표위치값을 변경할 수 있다. */
+		}
+		.listIn {
+			background: #CCFFFF;
+		}
+		.listOut {
+			background: #FFFFFF;
+		}
+	</style>
+	<script type="text/javascript">
+		var word = $("#keyword");
+		function account(){
+		}
+		function showMethod(){
+			//alert( "left: " + offset.left + ", top: " + offset.top );
+			//$("#d_result").css("left",word.offsetLeft+"px");//absolute 옵션이 있어야지 좌표위치값을 변경할 수 있다.
+			//$("#d_result").css("top",word.offsetTop+20+"px");
+			
+			$.ajax({
+				method:"get"
+				,url:"http://localhost:8000/json/dept.json"
+				,dataType:"json"
+				,success:function(data){
+					//alert("data:"+data);
+					var result = JSON.stringify(data); //구조체로 보여줌.  stringify 는 Object를 문자로 바꿔준다.
+					//alert("result:"+result);
+					var jsonDoc = JSON.parse(result); //parse는.. 
+					//alert("jsonDoc:"+jsonDoc[2].loc);
+					for (var i = 0; i < jsonDoc.length; i++) {//다 찍어보자
+						$("#d_result").text(jsonDoc[i].deptno+","+jsonDoc[i].dname+","+jsonDoc[i].loc+" :::");
+					}
+				}
+				,fail:function(xhrObject, txtStatus){
+					alert(txtStatus+","+xhrObject.responseText);
+				}
+			});
+		}
+		function clearMethod(){
+			$("#d_result").css("backgroundColor","#FFFFFF");
+			$("#d_result").css("border","none");
+			$("#d_result").html("");
+		}
+	</script>
+</head>
+<body>
+<script type="text/javascript">
+	$(document).ready(function(){ //돔구성이 준비돼었을떄~!
+		//$("#d_result").hide();//"여기"가 가려짐.
+	});
+</script>
+	<input type="text" id="keyword" name="keyword" size="20" onkeyup="showMethod()">
+	<div id="d_result">여기</div>
+	<button onclick="showMethod()">보여줘</button>
+	<button onclick="clearMethod()">지워줘</button>
+	<!-- <button onclick="javascript:$('#d_result').show()">보여줘</button> --> <!-- 가려졌던 "여기" 가 보여줘 버튼 클릭시 다시 보여짐 -->
+</body>
+</html>

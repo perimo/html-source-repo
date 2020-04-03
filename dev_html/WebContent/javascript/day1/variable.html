@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>변수의 초기화</title>
+<script type="text/javascript">
+/* 자바와는 다르게 컴파일을 하지 않으니까 문법체크(타입체크)를 하지 않는다. - 런타임시 타입이 결정된다. */
+	var num = 5; //전역변수
+	var isOk = false;
+	var insa = "좋은 아침";
+	var temp = null;
+	function test() {
+		var num = 7; //지역변수- 함수안에 있다.
+		alert("num: "+num);//지역변수 - 7
+		alert("this.num: "+this.num);//전역변수 - 5
+	}
+</script>
+</head>
+<body>
+	<script type="text/javascript">
+		alert("num: "+num);  //전역변수로 5가 출력된다.
+		test(); //함수안에 있는 지역변수로 7이 출력된다.
+	</script>
+<!--
+	데이터 타입
+	1) 숫자 : 정수와 실수
+	2) 논리 : false, true
+	3) 문자열 : "좋은 아침"
+	4) null : 특수 키워드
+	
+	변수
+	: 프로그램에서 필요한 data의 저장공간으로 항상 변하는 값을 기억
+	: 숫자로 시작하면 안됨. - 자바와 마찬가지
+	: 대소문자를 구분 - 자바와 마찬가지	
+	
+  -->
+</body>
+</html>

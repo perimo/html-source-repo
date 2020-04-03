@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script type="text/javascript">
+	var j3 = jQuery.noConflict();   /* jquery-3.4.1 버전 사용하면서 $ 대신에 j3 을 사용하고 싶다면 이렇게! */
+</script>
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+<script type="text/javascript">
+	var j1 = jQuery.noConflict();   /* jquery-3.4.1 버전 사용하면서 $ 대신에 j1 을 사용하고 싶다면 이렇게! */
+</script>
+<style type="text/css">
+	.high-light{background: yellow;}
+	.high-light-0{background: orange;}
+	.high-light-1{background: blue;}
+	.high-light-2{background: green;}
+	.high-light-3{background: red;}
+	.high-light-4{background: brown;}
+</style>
+</head>
+<body>
+<h1>item - 0</h1>
+<h1>item - 1</h1>
+<h1>item - 2</h1>
+<h1>item - 3</h1>
+<h1>item - 4</h1>
+<script type="text/javascript">
+	j1(document).ready(function(){
+		//$("h1").addClass('high-light');
+		j1("h1").each(function(index,item){
+			j1(this).addClass('high-light-'+index);
+		});
+	});
+</script>
+<!-- 버전 충돌날 때 이러식으로 처리 가능.(위에서는 $을 j1으로 처리했고 여기에서부터는 $을 j3로 처리했다.) -->
+<input type="text" id="mem_id" value="tomato"/>
+<script type="text/javascript">
+	alert(j3('#mem_id').val());
+</script>
+</body>
+</html>

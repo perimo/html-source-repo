@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>구구단 출력</title>
+</head>
+<body>
+<h3>구구단 출력 프로그램</h3>
+<script type="text/javascript">  //자바스크립트에서도 배열을 지원한다.
+	var dap = new Array(); //new Array(5) -크기를 제한하고 싶다면 이런식으로 인덱스를 0~4까지 지정할 수 있다.
+	var dan = prompt("확인하려는 구구단을 입력하세요.",2); //아무것도 입력을 안했을경우는 디폴트값으로 2
+	for (var i = 1; i <= 9; i++) {
+		dap[i] = dan*i;
+		document.write(dan,"*",i,"는",dap[i],"<br>"); //'+'대신 ','를 써서 출력할 수 있다.
+	}	
+</script>
+</body>
+</html>

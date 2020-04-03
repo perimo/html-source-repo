@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>부서관리-배열</title>
+<link rel="stylesheet" type="text/css" href="https://www.jeasyui.com/easyui/themes/default/easyui.css">
+<link rel="stylesheet" type="text/css" href="https://www.jeasyui.com/easyui/themes/icon.css">
+<link rel="stylesheet" type="text/css" href="https://www.jeasyui.com/easyui/themes/color.css">
+<link rel="stylesheet" type="text/css" href="https://www.jeasyui.com/easyui/demo/demo.css">
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="https://www.jeasyui.com/easyui/jquery.easyui.min.js"></script>
+</head>
+<body>
+<table id="dg" title="부서"></table> <!-- HTML이 주인이니 테이블 먼저, 그 아래 스크립트 추가 -->
+<script type="text/javascript">
+$('#dg').datagrid({
+	title:'부서관리', //table태그에서 타이틀이 정의 됐지만 나중에 정의 된 '부서관리' 로 나온다.
+    url:'deptInfo.jsp', //이 위치에는 확장자가 XXX.json, XXX.jsp, XXX.java(서블릿) 이렇게 올 수 있다.
+    columns:[[
+        {field:'DEPTNO',title:'부서번호',width:100, align:'center'},
+        {field:'DNAME',title:'부서명',width:100, align:'center'},
+        {field:'LOC',title:'지역',width:100, align:'center'}
+    ]],
+    onLoadSuccess:function(data){
+		alert("성공");
+	},
+	/* 아래랑 중복이니 주석
+    onDblClickCell: function(index,field,value){
+    	alert("index:"+index+", field:"+field+", value:"+value);
+    },
+    */
+    onDblClickRow: function(index,row){
+    	alert("index:"+index+", row:"+row+", row.DNAME:"+row.DNAME);
+    }
+	/*     
+	data: [
+		{code:'value11', name:'value12'},
+		{code:'value21', name:'value22'},
+		{code:'value31', name:'value32'}
+	] 
+	*/
+});
+</script>
+</body>
+</html>

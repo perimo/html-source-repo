@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<!-- 
+html -> javascript
+
+javascript -> jquery, vue, react........ 표준은 아니다.
+만일 저중에 지원을 안하는 부분이 있을 때, 버그가 있는 경우에는 표준이 답이다.
+ -->
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+	function check(user){
+		if (user.value.length > 4) {
+			alert("4글자 이상 입력할 수 없습니다.");
+			user.value="";
+		}
+	}
+	function check2(sel){
+		alert("당신이 선택한 메뉴는 "+sel.value);
+	}
+</script>
+</head>
+<body>
+<!-- 
+	select, text, textarea 등에서 객체의 내용을 변경한 후 포커스를 잃을 때 호출 된다.
+ -->
+<!-- <input type="text" id="mem_name" name="mem_name" onchange="check(this)" size="20">  --> <!-- onchange는 글자수가 4자가 넘어가도 입력은 되지만 엔터 혹은 다른곳을 눌렀을때 경고창이 뜬다 -->
+<input type="text" id="mem_name" name="mem_name" onkeyup="check(this)" size="20"> <!-- onkeyup은 글자수가 4자가 넘어가는 순간 경고창이 뜬다 -->
+	<select id="menu" name="menu" onchange="check2(this)">
+		<option value="김밥">김밥</option>
+		<option value="떡볶이">떡볶이</option>
+		<option value="돈까스">돈까스</option>
+		<option value="냉면">냉면</option>
+		<option value="된장찌개">된장찌개</option>
+	</select>
+</body>
+</html>

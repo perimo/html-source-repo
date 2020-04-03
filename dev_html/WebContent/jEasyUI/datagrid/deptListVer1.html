@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+	<link rel="stylesheet" type="text/css" href="https://www.jeasyui.com/easyui/themes/default/easyui.css">
+	<script type="text/javascript" src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+	<script type="text/javascript" src="https://www.jeasyui.com/easyui/jquery.easyui.min.js"></script> <!-- 위에 jquery를 먼저 임폴트 해야함. -->
+</head>
+<body>
+<!--
+오라클 서버와 연동 - select문 처리
+js 이용해서 태그를 접근하거나 조작할 수 있다.
+jeasyui는 어떻게 태그를 접근하고 이벤트 처리하는지 관찰하기.
+Jeasyui API활용능력 키우기.
+  -->
+	<table id="dg_dept"class="easyui-datagrid"></table> <!-- 어차피 스크립트 안에서 할거니까 여긴 아이디만 필요  -->
+<script type="text/javascript">
+	$("#dg_dept").datagrid({  //$를 쓰려면 jquery를 임폴트 해야함. //jquery 쓸때 '#' 빼먹지 않게 주의 
+		url:'./jsonDeptVOList.jsp',
+		title: '부서관리',
+		width: 480,
+		columns:[[
+	        {field:'deptno',title:'부서번호',width:120, align:'center'}
+	       ,{field:'dname',title:'부서명',width:150, align:'center'}
+	       ,{field:'loc',title:'지역',width:200, align:'center'}
+	    ]],
+		onDblClickRow: function(index,row){
+			alert(row.dname+", "+row.loc+", index: "+index);
+			//페이지 이동 처리할 때 - get방식이다.
+			//location도 내장 객체이다.
+			location.href="fetchTest.html";
+		}
+	});
+</script>
+</body>
+</html>

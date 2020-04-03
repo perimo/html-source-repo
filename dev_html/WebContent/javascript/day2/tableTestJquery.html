@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>tableTest.html과 비교[Jquery사용본]</title>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script type="text/javascript">
+	function account(){
+		document.write("<table border='1' width='450'>");
+		for (var i = 0; i < 3; i++) {
+		document.write("<tr><td>&nbsp;&nbsp;&nbsp;</td></tr>"); //&nbsp; ->띄워쓰기하는 코드
+		}
+		document.write("</table>");
+	}
+</script>
+</head>
+<body>
+<!-- 
+document 내장객체는 tableTest.html을 가리킨다.
+자바코드 영역
+자바스크립트 코드 영역
+CSS 코드 영역
+html 코드 영역
+ -->
+<script type="text/javascript">
+	function account(pstart,pend){
+		alert(pstart+" , "+pend);
+	}
+</script>
+<form id="f_gugudan">
+구구단 보기 : 
+시작단 : <input type="text" size="4" id="txtStart" name="txtStart"/>
+끝 단: <input type="text" size="4" id="txtEnd" name="txtEnd"/>
+<button onclick="javascript:account($('#txtStart').val(), $('#txtEnd').val())">구구단 보기</button>
+
+</form>
+</body>
+</html>
