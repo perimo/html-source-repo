@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+    <link rel="stylesheet" type="text/css" href="https://www.jeasyui.com/easyui/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="https://www.jeasyui.com/easyui/themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="https://www.jeasyui.com/easyui/themes/color.css">
+    <link rel="stylesheet" type="text/css" href="https://www.jeasyui.com/easyui/demo/demo.css">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="https://www.jeasyui.com/easyui/jquery.easyui.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC7W01KcM3qw0vcd-jEcYFyiEpW6Hwbzus"></script>
+	<script type="text/javascript">
+		function login() {
+			var u_id = $("#tb_id").val();
+			var u_pw = $("#tb_pw").val();
+			var mem_name = '';
+			//사용자가 입력한 아이디와 비번 확인하기
+			//alert("사용자가 입력한 아이디: "+u_id+", 비번: "+u_pw);
+			//location.href="loginAction.jsp?mem_id= "+u_id;//폼 전송으로만 요청할수있는게 아니라 location이라는 내장객체로도 요청할 수 있다.
+			//$("#f_login").attr("action","loginAction.jsp");//.jsp를 사용했다는것은 자바 코드를 사용한다는 것.
+			//$("#f_login").submit();
+			fetch("loginAction.jsp?mem_id="+u_id+"&mem_pw="+u_pw,{
+				method: "POST"
+			//}).then(e => e.text()).then(res => console.log(res));//타입이 json()이 아니고 text()여도 괜찮다.
+			}).then(res => res.text()).then(function(text){//res는 fetch함수의 응답으로 만들어 지는 객체를 가리키는 이름. res 대신 다른 변수이름을 써도된다.
+				//alert("text: "+text);
+				mem_name = text;
+				$("#d_login").hide();
+				$("#d_logout").show();
+				$("#d_logout").html("<b>"+mem_name+"님 환영합니다.</b>");
+			});
+		}
+	</script>
+</head>
+<body>
+<table border="1" align="center" width="900" height="600">
+	<tr>
+		<td width="700">
+		<div id="d_map" style="width:700px; height:600px;"></div>
+		</td>
+		<td width="200" valign="top">
+<!--======================== 로그인 화면 시작 ======================-->		
+		<div id="d_login">
+			<form id="f_login">
+			<table width="100%" border="0" borderColor="blue">
+				<tr>
+					<td>
+					<input id="tb_id" name="mem_id" class="easyui-textbox" prompt="아이디" data-options="iconCls:'icon-man'" style="width:120px">
+					</td>
+					<td rowspan="2">
+						<a id="btn" href="javascript:login()" class="easyui-linkbutton">로그인</a>
+					</td>
+				</tr>
+				<tr>
+					<td>
+					<input id="tb_pw" name="mem_pw" class="easyui-passwordbox" prompt="비밀번호" iconWidth="28" style="width:120px;padding:10px">
+					</td>
+				</tr>
+			</table>
+			</form>
+		</div>
+<!--====================== 로그인 화면  끝  ======================-->		
+<!--======================== 로그아웃 화면 시작 ======================-->		
+		<div id="d_logout">
+			<form id="f_logout">
+				<table width="100%" border="0" borderColor="blue">
+					<tr>
+						<td>
+							홍길동님 환영합니다.
+						</td>
+						<td>로그아웃</td>
+					</tr>
+				</table>
+			</form>
+		</div>
+<!--====================== 로그 아웃 화면  끝  ======================-->		
+		<table width="100%" border="1" borderColor="red">
+			<tr>
+				<td>좋아요 : </td>
+			</tr>
+			<tr>
+				<td>싫어요 : </td>
+			</tr>
+		</table>
+		</td>
+	</tr>
+</table>
+<script type="text/javascript">
+	$(document).ready(function(){//돔구성이 끝났을때 스크립트
+		$("#d_login").show();
+		$("#d_logout").hide();
+		
+		//지도를 보여주는 스크립트
+		var map = new google.maps.Map(document.getElementById('d_map'),{
+			zoom: 14
+		   ,center: new google.maps.LatLng(37.478785, 126.878669) //첫 화면 센터에 보여줄 위도,경도 설정
+		   ,mapTypeId: google.maps.MapTypeId.ROADMAP //첫 화면으로 로드(ROADMAP)맵으로 보여줄지 위성(SATELLITE)맵으로 보여줄지 설정//디폴트는 로드맵
+		});////////////end of map
+		var infoWindow = new google.maps.InfoWindow(); //infoWindow - 말풍선 보여주는 애.(팝업창) //google.maps. 는 패키지이름. 디폴트값이지만 생략하지않는다.
+		var marker; //5개가 출력이 돼야함.(json으로 스캔 - jsonMapLis.jsp)
+		var i; //마커 생성시 부여한 인덱스값 0~4
+		$.ajax({
+			url: 'jsonMapList.jsp'
+			,dataType: 'json'
+			,success:function(data){
+				//$("#d_map").text(data);//[object Object] //object로 보여줌
+				//insert here - data를 오브젝트가 아니라 스트링으로 받아오기
+				var result = JSON.stringify(data);//직관적인 정보로 변환(구조체-덩어리 느낌)-알아볼 수 잇게 됨. //Object를 String 타입으로 덩어리로 받아오기
+				//$("#d_map").text(result);
+				var jsonDoc = JSON.parse(result);//배열로 전환-다시 객체화 처리(배열로 처리) //result를 한번더 파싱 작업을 통해 덩어리에서 하나씩 값을 받아온다.
+				for (var i = 0; i < jsonDoc.length; i++) {
+					//alert(jsonDoc[i].res_name); //값을 꺼낼때는 배열.속성이름 으로 꺼낸다. //i는 로우니까 바뀐 로우에 대한 값을 보여준다.
+					marker = new google.maps.Marker({
+						id: i//0,1,2,3,4 - 마커의 인덱스 정보
+						//포지션값도 배열로 변경됨.
+					   ,position: new google.maps.LatLng(jsonDoc[i].lat,jsonDoc[i].lng)
+					   ,map: map//지도는 하나. //마커를 맵에다 찍어달라.
+					   ,title: jsonDoc[i].res_name//식당이름을 제목에 달아달라. //마커가 5개이므로 식당이름 5개로 분류
+					});////////////////end of marker
+					//마커 5개가 for문 안에서 객체생성 되니까 이벤트도 안에서 건다.
+					google.maps.event.addListener(marker, 'click',(function(marker,i){ //마커에다 클릭 이벤트 달기.
+						//addListener 함수의 리턴값이 변수가 아닌 함수임.
+						return function() {//함수의 결과는 윈도우창을 열어줌(click된 마커마다 달라야함.) //함수의 리턴값이 함수다.
+							infoWindow.setContent('<b>'+jsonDoc[i].res_name+'</b>'); //말풍선에 내용을 넣는 함수
+							infoWindow.open(map,marker);
+						}//////end of 반환함수
+					})(marker,i));/////////////addListener 끝
+					//마커를 생성했을 때 click이벤트 처리하기
+					if (marker) {//자바스크립트 문법에서는 0이 아니면 모두 true.
+						marker.addListener('click',function(){//마커를 클릭했을시.
+						map.setZoom(16);//맵을 14->16로 줌하고
+							map.setCenter(this.getPosition()); //지금 지역으로 포지션을 변경해준다.-getPosition()함수
+						});
+					}////////end of if
+				}////////////end of for
+			}////////////////end of success
+		});//////////////////end of ajax
+	});//////////////////////end of ready
+</script>
+</body>
+</html>

@@ -2,10 +2,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>아이디 유효검사</title>
 <script type="text/javascript">
-/* 
-	function validate(p_input){//오haha
+	function validate(p_input){//오haha //p_input사용자가 입력한 아이디
 		var valid = "abcdefghijklmnopqrstuvwxyz0123456789";
 		var ok = "yes";
 		var temp;
@@ -19,14 +18,14 @@
 			p_input.focus();
 		}
 	}
- */
- </script>
+</script>
 </head>
 <body>
 <form id="f_login" method="get" action="loginAction.html">
 	아이디: <input type="text" id="mem_id" name="mem_id" onblur="validate(this)">
 	<br>
-	<button onclick="document.getElementById('f_login').submit();">로그인</button>
+	<input type="submit" value="login">
+	<!-- <button onclick="document.getElementById('f_login').submit();">로그인</button> -->
 </form>
 </body>
 </html>

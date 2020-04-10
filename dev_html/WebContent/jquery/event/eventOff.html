@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>해당 문서 객체와 관련된 모든 이벤트 제거하기</title>
+<!-- 아래 src경로가 잘못되거나 추가가 안되있으면 $ is not define... -->
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.10.2.js"></script>
+</head>
+<body>
+	<h1>Hello</h1>
+	<h1>Hello</h1>
+	<h1>Hello</h1>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$('h1').dblclick(function(){
+				alert("더블클릭 이벤트 감지");
+			});
+			//alert("DOM구성이 완료 되었을 때");
+			$('h1').click(function(){
+				alert("click 이벤트 발생 감지")
+				$(this).html('클릭');//text()함수 - innerText - 그대로 출력하지만  //html()함수 - innerHTML - 태그는 인터프리터 되서 출력 - 이 두가지 구분하기 - ajax에서 활용
+				$(this).off('click');//하나의 이벤트만 끄고 싶을떄는 이벤트이름(click)을 입력한다.
+			});/////////end of click
+		});/////////////end of ready
+	</script>
+</body>
+</html>

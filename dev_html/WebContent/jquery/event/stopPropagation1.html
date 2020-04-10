@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>이벤트 전이 Propagation</title>
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.10.2.js"></script>
+</head>
+<body>
+	<div class="first-level">
+		<div class="second-level">
+			<h1 class="third-level">
+				event
+			</h1>
+		</div>
+	</div>
+<!-- 
+이 코드에서 단지 third-level만 클릭했을 뿐인데 부모 엘리먼트에게도 이벤트가 전파됨을 알았따.
+이벤트가 상위 엘리먼트로 전이되는것을 막아주는 함수가 있다. - stopPropagation();
+ -->
+	<script type="text/javascript">
+		$(".third-level").click(function(e){
+			e.stopPropagation();//상위 태그에 이벤트 전이가 일어나는걸 막아주는 코드
+			alert("third-level");
+		});
+		$(".second-level").click(function(){
+			alert("second-level");
+		});
+		$(".first-level").click(function(){
+			alert("first-level");
+		});
+	</script>
+</body>
+</html>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<div id="d_result"></div>
+<script type="text/javascript">
+	fetch('http://localhost:8000/google/map/jsonProcMapList.jsp',{
+		method:"POST"//post 방식으로 찍어보기
+	}).then((resp) => resp.json())
+	.then(function(data){
+		//alert(data)
+		var result = JSON.stringify(data);
+		var jsonDoc = JSON.parse(result);
+		document.getElementById("d_result").innerText = result;
+	});
+</script>
+</body>
+</html>

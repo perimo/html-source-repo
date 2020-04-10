@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<div id="d_result"></div>
+<script type="text/javascript">
+	fetch('http://localhost:8000/google/map/jsonProcMapList.jsp',{
+		method:"POST"
+	}).then((resp) => resp.json())
+	.then(json => console.log(json))//개발자도구의 콘솔에 로그 찍어볼 수 있다.
+</script>
+</body>
+</html>

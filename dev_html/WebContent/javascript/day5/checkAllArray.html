@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript">
+	function checkAll(size){//DB에서는 select * from 테이블 의 결과 -> 자바에서는 list.size() ->결국엔  로우 수 를 받아옴
+		//전체 체크박스를 선택 한거야?
+		if (document.f_rev.i_checkall.checked == 1) {//체크박스를 선택하면 상태값이 1 인것같다. 그래서 체크했을때가 1과 같다면 if문 안으로 들어간다.
+			alert("전체 선택함");
+			for (var i = 0; i < size; i++) {
+				document.f_rev.from[i].checked = 1;
+			}
+		}
+		//전체 체크박스를  해제했을 때
+		else {
+			alert("전체 선택 해제함");
+			for (var i = 0; i < size; i++) {
+				document.f_rev.from[i].checked = 0; //0 이면 체크박스 선택이 해제
+			}	
+		}
+	}
+</script>
+</head>
+<body>
+	<form name="f_rev" method="get" action="#">
+	<table width="500" border="1" bordercolor="green">
+	<!--============= 헤더 영역 =================-->
+		<tr>
+			<th><input type="checkbox" id="i_checkall" name="i_checkall" onClick="checkAll(3)"></th>
+			<th>no</th><!-- <th>태그는 가운데 정렬 시켜줌  -->
+			<th>보낸이</th>
+			<th>보낸일자</th>
+		</tr>
+	<!--============= body 영역 =================-->
+		<tr>
+			<th><input type="checkbox" name="from" value="from1"></th>
+			<td>1</td>
+			<td>이순신</td>
+			<td>2020-04-07</td>
+		</tr>
+		<tr>
+			<th><input type="checkbox" name="from" value="from2"></th>
+			<td>2</td>
+			<td>유재석</td>
+			<td>2020-04-08</td>
+		</tr>
+		<tr>
+			<th><input type="checkbox" name="from" value="from3"></th>
+			<td>3</td>
+			<td>강호동</td>
+			<td>2020-04-09</td>
+		</tr>
+	</table>
+	</form>
+</body>
+</html>

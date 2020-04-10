@@ -14,35 +14,39 @@
 		   ,center: new google.maps.LatLng(37.478785, 126.878669) //첫 화면 센터에 보여줄 위도,경도 설정
 		   ,mapTypeId: google.maps.MapTypeId.ROADMAP //첫 화면으로 로드(ROADMAP)맵으로 보여줄지 위성(SATELLITE)맵으로 보여줄지 설정//디폴트는 로드맵
 		});
-		var infoWindow = new google.maps.InfoWindow(); //infoWindow - 말풍선 보여주는 애.
-		var marker; //5개가 출력이 돼야함.
-		var i; //마커 생성시 부여한 인덱스값
+		var infoWindow = new google.maps.InfoWindow(); //infoWindow - 말풍선 보여주는 애.(팝업창) //google.maps. 는 패키지이름. 디폴트값이지만 생략하지않는다.
+		var marker; //5개가 출력이 돼야함.(json으로 스캔 - jsonMapLis.jsp)
+		var i; //마커 생성시 부여한 인덱스값 0~4
 		$.ajax({
 			url: 'jsonMapList.jsp'
 			,dataType: 'json'
 			,success:function(data){
-				//$("#d_map").text(data);//object로 보여줌
+				//$("#d_map").text(data);//[object Object] //object로 보여줌
 				//insert here - data를 오브젝트가 아니라 스트링으로 받아오기
-				var result = JSON.stringify(data); //Object를 String 타입으로 덩어리로 받아오기
+				var result = JSON.stringify(data);//직관적인 정보로 변환(구조체-덩어리 느낌)-알아볼 수 잇게 됨. //Object를 String 타입으로 덩어리로 받아오기
 				//$("#d_map").text(result);
-				var jsonDoc = JSON.parse(result); //result를 한번더 파싱 작업을 통해 덩어리에서 하나씩 값을 받아온다.
+				var jsonDoc = JSON.parse(result);//배열로 전환-다시 객체화 처리(배열로 처리) //result를 한번더 파싱 작업을 통해 덩어리에서 하나씩 값을 받아온다.
 				for (var i = 0; i < jsonDoc.length; i++) {
-					//alert(jsonDoc[i].res_name); //i는 로우니까 바뀐 로우에 대한 값을 보여준다.
+					//alert(jsonDoc[i].res_name); //값을 꺼낼때는 배열.속성이름 으로 꺼낸다. //i는 로우니까 바뀐 로우에 대한 값을 보여준다.
 					marker = new google.maps.Marker({
-						id: i
+						id: i//0,1,2,3,4 - 마커의 인덱스 정보
+						//포지션값도 배열로 변경됨.
 					   ,position: new google.maps.LatLng(jsonDoc[i].lat,jsonDoc[i].lng)
-					   ,map: map
-					   ,title: jsonDoc[i].res_name
+					   ,map: map//지도는 하나. //마커를 맵에다 찍어달라.
+					   ,title: jsonDoc[i].res_name//식당이름을 제목에 달아달라. //마커가 5개이므로 식당이름 5개로 분류
 					});
-					google.maps.event.addListener(marker, 'click',(function(marker,i){
-						return function() {
+					//마커 5개가 for문 안에서 객체생성 되니까 이벤트도 안에서 건다.
+					google.maps.event.addListener(marker, 'click',(function(marker,i){ //마커에다 클릭 이벤트 달기.
+						//addListener 함수의 리턴값이 변수가 아닌 함수임.
+						return function() {//함수의 결과는 윈도우창을 열어줌(click된 마커마다 달라야함.) //함수의 리턴값이 함수다.
 							infoWindow.setContent('<b>'+jsonDoc[i].res_name+'</b>'); //말풍선에 내용을 넣는 함수
 							infoWindow.open(map,marker);
 						}//////end of 반환함수
 					})(marker,i));
+					//마커를 생성했을 때 click이벤트 처리하기
 					if (marker) {//자바스크립트 문법에서는 0이 아니면 모두 true.
 						marker.addListener('click',function(){//마커를 클릭했을시.
-						map.setZoom(15);//맵을 14->15로 줌하고
+						map.setZoom(16);//맵을 14->16로 줌하고
 							map.setCenter(this.getPosition()); //지금 지역으로 포지션을 변경해준다.-getPosition()함수
 						});
 					}

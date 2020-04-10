@@ -17,5 +17,6 @@
 	<classpathentry kind="lib" path="C:/app/kosmo_17/product/11.1.0/db_1/jdbc/lib/ojdbc6.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/ojdbc6.jar"/>
 	<classpathentry kind="lib" path="C:/git_html/html-source-repo/dev_html/WebContent/WEB-INF/lib/gson-2.8.6.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/5"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

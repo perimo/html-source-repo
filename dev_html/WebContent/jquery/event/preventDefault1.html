@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>preventDefault1.html</title>
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.10.2.js"></script>
+</head>
+<body>
+<!-- 
+	html에서 a태그나 submit태그는 고유한 동작이 있다.(a태그는 하이퍼링크 걸어주는 태그, submit은 입력받은 데이터를 서버로 제출)
+	그러한 고유 동작을 중단시키는 함수가 preventDefault()
+	주의사항: 브라우저가 제공하는 내장객체는 전부 인스턴스화 없이 즉시 사용가능
+ -->
+	<a href="http://www.ikosmo.co.kr">한국소프트웨어인재개발원</a> 
+	<script type="text/javascript">
+		$("a").click(function(e){
+			e.preventDefault(); //a태그로 하이퍼링크 주소 연결을 막아주는 함수
+			alert("페이지 이동시...");
+		});
+	</script>
+</body>
+</html>

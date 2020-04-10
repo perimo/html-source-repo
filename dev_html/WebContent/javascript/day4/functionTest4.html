@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<!-- 
+함수의 리턴타입이 변수가 아닌 또 하나의 함수일 때 어떻게 동작하지?
+ -->
+<script type="text/javascript">
+	function methodA(a){
+		var output = function(b){//변수로 받은 다음 리턴값으로 output으로 반환
+			document.write("methodA===> "+a+", b: "+b);
+		}//////end of return function
+		return output;
+	}//////////end of methodA
+	methodA(15)(7);
+</script>
+</body>
+</html>

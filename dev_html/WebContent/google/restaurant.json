@@ -1,32 +1,32 @@
 [
 	{
-		lng: 126.884237,
-		res_photo: "sushi.jpg",
-		res_name: "스시히또",
-		lat: 37.480486
+		"lng": 126.884237,
+		"res_photo": "sushi.jpg",
+		"res_name": "스시히또",
+		"lat": 37.480486
 	},
 	{
-		lng: 126.882446,
-		res_photo: "gobchang.jpg",
-		res_name: "가산황소곱창",
-		lat: 37.480081
+		"lng": 126.882446,
+		"res_photo": "gobchang.jpg",
+		"res_name": "가산황소곱창",
+		"lat": 37.480081
 	},
 	{
-		lng: 126.883727,
-		res_photo: "cafe.jpg",
-		res_name: "카페 스미다",
-		lat: 37.481685
+		"lng": 126.883727,
+		"res_photo": "cafe.jpg",
+		"res_name": "카페 스미다",
+		"lat": 37.481685
 	},
 	{
-		lng: 126.884849,
-		res_photo: "kokoro.jpg",
-		res_name: "코코로식당",
-		lat: 37.482537
+		"lng": 126.884849,
+		"res_photo": "kokoro.jpg",
+		"res_name": "코코로식당",
+		"lat": 37.482537
 	},
 	{
-		lng: 126.881857,
-		res_photo: "muk.jpg",
-		res_name: "먹쉬돈나",
-		lat: 37.481836
+		"lng": 126.881857,
+		"res_photo": "muk.jpg",
+		"res_name": "먹쉬돈나",
+		"lat": 37.481836
 	}
 ]

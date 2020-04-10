@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+	<style type="text/css">
+		.grid {
+			width: 500px;
+			margin: 0 auto;
+		}
+		.grid-item {
+			width: 100px;
+			height:100px;
+/*
+block: 무조건 줄바꿈
+inline: 한줄 정렬
+inline-block: width와 height를 맞추면서 정렬. 만일 폭을 넘어가면 다음줄로 넘어감. 
+ */
+			display: inline-block;
+			vertical-align: top;
+		}
+		.grid-item.a {background-color: orange;}
+		.grid-item.b {background-color: blue;}
+		.grid-item.c {background-color: green;}
+		.grid-item.d {background-color: yellow;}
+		.grid-item.e {background-color: grey;}
+	</style>
+</head>
+<body>
+	<div class="grid">
+		<div class="grid-item a"></div>
+		<div class="grid-item b"></div>
+		<div class="grid-item c"></div>
+		<div class="grid-item d"></div>
+		<div class="grid-item e"></div>
+	</div>
+</body>
+</html>

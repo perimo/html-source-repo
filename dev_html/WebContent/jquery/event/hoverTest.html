@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>hover이벤트</title>
+	<style type="text/css">
+		.reverse{
+			background: black;
+			color: white;
+		}
+	</style>
+	<script type="text/javascript" src="http://code.jquery.com/jquery-1.10.2.js"></script>
+</head>
+<body>
+	<h1>Hello</h1>
+	<h1 id='h100'>Hello</h1>
+	<h1>Hello</h1>
+	<script type="text/javascript">
+	//DOM구성이 완료 되었을 때 (h1태그가 인지된 후)
+		$(document).ready(function(){
+			//이벤트 연결 //hover의 파라미터로(1,2) 두가지가 올수있으면 첫번쨰 파라미터function에서 마우스를 올렸을 떄 reverse스타일을 추가하고, 두번쨰파라미터function에서 마우스를 치웠을떄 reverse스타일을 제거한다. 
+			$('h1').hover(function(){  //3개의 h1를 전부 조작하고 싶다. 그래서 아이디를 $('#h100') 이라고 안줬다.
+				$(this).addClass('reverse');
+			}, function(){
+				$(this).removeClass("reverse");//마우스오버 상황에는 위에 reverse가 실행되고 마우스오버가 끝나는 수간간 아래 reverse가 실행된다.
+			});///////////////end of hover
+		});///////////////////emd of ready
+	</script>
+</body>
+</html>
+
+
+

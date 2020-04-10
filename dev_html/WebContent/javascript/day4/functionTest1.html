@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<script type="text/javascript">
+	function test(){	//함수 이름(test)이 있는 경우에는 호출을 해야 실행이 된다.
+		alert("test 호출");
+	}
+	test(); //body태그 안에서는 바로 실행가능하니까 이렇게 스크립트 안에서 호출을 해줘야지 실행된다.
+	(function(){	//함수 이름이 없는 익명 함수는 호출없이 바로 실행된다.
+		document.write("실행문");
+	})();
+</script>
+</body>
+</html>
