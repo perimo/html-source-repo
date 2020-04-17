@@ -92,7 +92,7 @@ public class RestaurantDao {
 		return rList;
 	}
 	
-	public List<Map<String, Object>> restList() {  //조회하는 메소드 
+	public List<Map<String, Object>> restList() {  //식당 정보를 조회하는 메소드 
 		List<Map<String, Object>> rList = null;
 		StringBuilder sql = new StringBuilder();
 		sql.append("SELECT res_num, res_name, res_tel, res_addr, res_hate");
@@ -129,10 +129,10 @@ public class RestaurantDao {
 		return rList;
 	}
 	
-	public List<Map<String, Object>> mapRestList() {  //조회하는 메소드 
+	public List<Map<String, Object>> mapRestList() {  //식당 정보를 조회하는 메소드 
 		List<Map<String, Object>> mrList = null;
 		StringBuilder sql = new StringBuilder();
-		sql.append("SELECT res_name, res_photo, lat, lng ");
+		sql.append("SELECT res_num, res_name, res_tel, res_hate, res_like, res_photo, lat, lng ");
 		sql.append(" FROM restaurant");
 		try {
 			con = dbMgr.getConnection();
@@ -142,7 +142,11 @@ public class RestaurantDao {
 			Map<String, Object> rmap = null;
 			while (rs.next()) {
 				rmap = new HashMap<>();
+				rmap.put("res_num", rs.getInt("res_num"));
 				rmap.put("res_name", rs.getString("res_name"));
+				rmap.put("res_tel", rs.getString("res_tel"));
+				rmap.put("res_hate", rs.getInt("res_hate"));
+				rmap.put("res_like", rs.getInt("res_like"));
 				rmap.put("res_photo", rs.getString("res_photo"));
 				rmap.put("lat", rs.getDouble("lat"));
 				rmap.put("lng", rs.getDouble("lng"));
@@ -158,7 +162,7 @@ public class RestaurantDao {
 		return mrList;
 	}
 		
-	public int restINS(Map<String, Object> pMap) {//입력하는 메소드
+	public int restINS(Map<String, Object> pMap) {//식당 정보를 입력하는 메소드
 		int result = 0;
 		StringBuilder sql = new StringBuilder();
 		sql.append("INSERT INTO restaurant(res_num, res_name, res_tel, res_addr ");

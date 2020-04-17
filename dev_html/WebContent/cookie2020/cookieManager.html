@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>쿠키관리[cookieManager.html]</title>
+<script type="text/javascript" src="http://code.jquery.com/jquery-3.4.1.js"></script><!-- 순서중요. jquery 먼저. 그다음 easyui. 그다음 cookie -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+</head>
+<body>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#btn_make").click(function(){
+			$.cookie('c_id', 'tomato');//여기서 쿠키 생성이 됨.
+			$.cookie('c_name'
+					,'김유신'
+					,{expires:7, path: '/', domain: 'localhost', secure: false});
+		});
+		$("#btn_move").click(function(){
+			location.href='nextMove.html';
+		});
+	});
+</script>
+<!-- 
+expires: 만료일을 의미 위에서 7을 주었으므로 7일동안 유지
+path: 경로 설정. 이 사이트의 모든 페이지가 해당된다면 슬러쉬만 두고 특정한 폴더라면 경로를 줌.
+domain: 쿠키가 적용될 도메인.
+secure: 기본은 false이고, true면 https 프로토콜만 적용됨.
+ -->
+<button id="btn_make">쿠키생성</button>&nbsp;
+<button id="btn_delete">쿠키삭제</button>&nbsp;
+<button id="btn_move">페이지 이동</button>&nbsp;
+</body>
+</html>

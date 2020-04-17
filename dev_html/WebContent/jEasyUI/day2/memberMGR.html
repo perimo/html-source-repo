@@ -20,7 +20,7 @@
 			//insert here
 			$("#dg_member").datagrid({//두번째 로딩
 				//datagrid에 출력될 값(오라클 서버,json-변경됨)
-				url: "../../json/dept.json"
+				url: "jsonMemberList.jsp"
 			   ,onLoadSuccess:function(data2){
 					//alert("dg_member loading success!!!");
 					alert("data2: "+data2);
@@ -118,8 +118,10 @@
 				,title: "회원관리 - Ver1.0"
 				,width: 700, height: 500
 				,columns: [[
-					{field: 'dname', title: '부서명', width: 100}
-				   ,{field: 'loc', title: '지역', width: 100}
+					{field: 'mem_no', title: '번호', width: 100}
+				   ,{field: 'mem_id', title: '아이디', width: 120}
+				   ,{field: 'mem_name', title: '이름', width: 150}
+				   ,{field: 'mem_email', title: '이메일]', width: 200}
 				]]
 /* 		    //datagrid에 출력될 값(상수값-고정값)
 				,data: [
@@ -128,7 +130,7 @@
 				] */
 			//이벤트 처리부에서 undefine 발생한 경우 전체화면이 깨지진 않음.
 				,onDblClickRow: function(index, row){
-					alert("index: "+index+", row: "+row+", row.dname: "+row.dname+", row.loc: "+row.loc);
+					alert("index: "+index+", row: "+row+", row.mem_no: "+row.mem_no+", row.mem_id: "+row.mem_id+", row.mem_name: "+row.mem_name+", row.mem_email: "+row.mem_email);
 				}
  			//insert here
 				,onLoadSuccess: function(data){

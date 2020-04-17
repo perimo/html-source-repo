@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<!-- $ is not defined 가 뜨는건 import를 안해줘서 그렇다. -->
+<script type="text/javascript" src="http://code.jquery.com/jquery-3.4.1.js"></script>
+</head>
+<body>
+	<div id="d_info"></div>
+<script type="text/javascript">
+//ready함수를 사용하지 않고 있다.
+//ready함수를 사용할 때와 사용하지 않았을 때 차이점에 대해 말할 수 있다
+//레디함수를 쓰지 않았을떄는 d_info 아이디를 사용하기 전에 앞쪽에 둬야한다. //레디함수를 썼을떄는 DOM체크를 다 해주고 호출되기 때문에 위치가 관계없다.
+	$.ajax({
+		method: 'get' //or 'post'=> post방식은 data속성을 같이 사용함. //전송방식(사용자가 서버에게 요청, 서버가 사용자에게 전송하는 방식-응답)
+	   ,url: 'customerInfo.jsp'
+	   ,dataType: 'json'
+	   ,success: function(result){
+		   alert(result);
+		   //fetch함수로 처리시에는 result.trim() 처리하여 공백 문자를 제거한다.
+		   var res = JSON.stringify(result);
+		   var resDoc = JSON.parse(res);//배열전환 - parse함수는  JSON형식의 문자열을 객체로 변환시켜줌   //덩어리 정보들을 나눠서 배열로 바꿔줌.
+		   for (var i = 0; i < resDoc.length; i++) {
+			alert(resDoc[i].mem_tel);
+			if ("01011112222"==resDoc[i].mem_tel) {
+				alert(resDoc[i].mem_addr);
+			}
+		}
+		   //$("#d_info").text(res); //div태그에 넣어주자
+	   }
+	});
+</script>
+</body>
+</html>

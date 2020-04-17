@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>cookieManager에서 이동한 페이지[nextMove.html]</title>
+<style type="text/css">
+	#d_cookie {
+		border: 1px solid black;
+		background: pink;
+		width: 500px;
+		height: 150px;
+	}
+</style>
+<script type="text/javascript" src="http://code.jquery.com/jquery-3.4.1.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+</head>
+<body>
+<script type="text/javascript">
+	$(document).ready(function(){
+		var c_id = $.cookie("c_id");
+		var c_pw = $.cookie("c_pw");
+		var c_name = $.cookie("c_name");
+		$("#d_cookie").append(c_id+"<br>");
+		$("#d_cookie").append(c_pw+"<br>");
+		$("#d_cookie").append(c_name+"<br>");
+	});
+</script>
+<div id="d_cookie">쿠키 정보 전광판<br></div>
+</body>
+</html>

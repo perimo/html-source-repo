@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>그림소개</title>
+<script type="text/javascript" src="http://code.jquery.com/jquery-3.4.1.js"></script>
+<link rel="stylesheet" type="text/css" href="pictureMain.css"><!-- 외부에 있는 CSS 클래스 연결 -->
+<style type="text/css">
+	table {
+		border: 1px solid black;
+	}
+</style>
+<script type="text/javascript">
+	function startMethod(td){ //파라미터로 넘겨받은 td는 이 함수를 호출할떄 넘기는 this(결국 this가 가리키는 td태그를 말함.)
+		//alert(td);
+		//$("#d_detail").attr("left",150);
+		//$("#d_detail").attr("top",150);
+		var u_pic = $(td).attr("id");//attribute 속성 이름에 접근하는 함수 - 속성 이름이 id
+		//alert("사용자가 마우스 오버한 그림 파일명: "+u_pic);
+		$.ajax({
+			method: "post"
+//			,url: "pictureInfo.jsp?id="+u_pic+"&timestamp="+new Date().getTime() - get방식
+			,url: "pictureInfo.jsp"
+			,data: "id="+u_pic	//post방식
+			,success: function(result){
+				//alert(result);
+				$("#d_detail").css("left", $(td).offset().left+103+"px");
+				$("#d_detail").css("top", $(td).offset().top+"px");//td태그 기준으로 top을 맞춰준다.(y좌표는 필요없다)
+				$("#d_detail").html(result);
+			}
+		});
+	}
+	function clearMethod(){
+		//alert("clear");
+		$("#d_detail").html("");
+	}
+</script>
+</head>
+<body>
+<div id="d_detail"></div>
+<table>
+	<thead>
+		<th colspan="2">그림 목록</th> <!-- colspan="2" 은 두개의 칸을 하나로 합쳐줌 -->
+	</thead>
+	<tbody>
+		<tr>
+			<td align="center"><img src="picture1.jpg" width="50" height="50"/></td>
+			<td id="picture1.jpg" onmouseover="startMethod(this)" onmouseout="clearMethod()">추상화1</td> <!-- onmouseout마우스가 오버되어있던게 치워지면 지워주는 함수 -->
+		</tr>
+		<tr>
+			<td align="center"><img src="picture2.jpg" width="50" height="50"/></td>
+			<td id="picture2.jpg" onmouseover="startMethod(this)" onmouseout="clearMethod()">추상화2</td>
+		</tr>
+		<tr>
+			<td align="center"><img src="picture3.jpg" width="50" height="50"/></td>
+			<td id="picture3.jpg" onmouseover="startMethod(this)" onmouseout="clearMethod()">추상화3</td>
+		</tr>
+		<tr>
+			<td align="center"><img src="picture4.jpg" width="50" height="50"/></td>
+			<td id="picture4.jpg" onmouseover="startMethod(this)" onmouseout="clearMethod()">추상화4</td> <!-- startMethod(this) 매소드를 호출할떄 넘기는 this는 지금 속해있는 td태그를 말한다. -->
+		</tr>
+	</tbody>
+</table>
+</body>
+</html>
