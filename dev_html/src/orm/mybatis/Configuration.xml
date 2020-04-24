@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<typeAliases>
+		<typeAlias alias="empVO" type="com.vo.EmpVO"/>
+	</typeAliases>
+	<environments default="development">
+		<environment id="development">
+			<transactionManager type="JDBC" />
+			<dataSource type="POOLED">
+				<property name="driver" value="oracle.jdbc.driver.OracleDriver" />
+				<property name="url" value="jdbc:oracle:thin:@127.0.0.1:1521:orcl11" />
+				<property name="username" value="scott" />
+				<property name="password" value="tiger" />
+			</dataSource>
+		</environment>
+	</environments>
+	<mappers><!-- mappers에 s가 붙은걸 보면 여러개를 매핑할 수 잇다는걸 알 수 있고 콤마없이 여러개 사용가능. -->
+<!-- XML주석
+DML구문 즉 select, insert, update, delete 문이 작성 된 xml파일의 물리적인 위치와 파일명을 등록하기
+ -->
+		<mapper resource="orm/mybatis/mapper/emp.xml" />
+		<mapper resource="orm/mybatis/mapper/dept.xml" /> <!-- 부서관리도 같이 작업하고 싶다면 dept테이블도 dept.xml로추가 -->
+		<mapper resource="orm/mybatis/mapper/book.xml" />
+		<mapper resource="orm/mybatis/mapper/common.xml" />
+	</mappers>
+</configuration>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="orm.mybatis.mapper.empMapper">
+	<select id="empList" parameterType="map" resultType="java.util.Map"> <!--알리야스명으로 map 으로 쓸 수 있음. 이것은 java.util.Map와 같은 뜻 -->
+		select empno, ename, job, mgr, TO_CHAR(hiredate,'YYYY-MM-DD') hiredate, sal, comm, deptno <!-- DML문 select문을 날것 그대로 사용 -->
+		 from emp
+		<if test="empno > 0">
+		 where empno = #{empno}
+		</if>
+	</select>
+	
+	<!-- 
+	<select id="empList2" parameterType="int" resultType="java.util.Map">
+		select empno, ename, job, mgr, hiredate, sal, comm, deptno
+		 from emp
+		 where empno = #{value}
+	</select>
+	 -->
+	
+	<!-- 
+	<select id="empList2" parameterType="map" resultType="com.vo.EmpVO">
+		select empno, ename, job, mgr, hiredate, sal, comm, deptno
+		 from emp
+	</select>
+	-->
+	
+	<delete id="empDelete" parameterType="map">
+		delete from emp
+		 where empno=#{empno} <!-- Map<String,Object> map.put("empno",7566); -->
+	</delete>
+</mapper>

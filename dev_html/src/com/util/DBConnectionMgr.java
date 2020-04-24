@@ -11,7 +11,7 @@ public class DBConnectionMgr {
 	//이 클래스를 읽어야 오라클 제품인것을 확인 가능함.
 	public static final String _DRIVER = "oracle.jdbc.driver.OracleDriver";
 	//물리적으로 떨어져있는 오라클 서버에URL정보 추가
-	public static final String _URL = "jdbc:oracle:thin:@192.168.0.28:1521:orcl11";
+	public static final String _URL = "jdbc:oracle:thin:@127.0.0.1:1521:orcl11";
 	public static String _USER = "SCOTT"; //아이디나 비번은 바뀌는값이라 final 뺸다.
 	public static String _PW = "tiger";
 	//static은 클래스급이다.-공유(여러개가 아니라 하나를 접근하는것이다-정적변수)
