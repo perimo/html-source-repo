@@ -3,10 +3,22 @@
  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd"><!-- 명세서 -->
  <mapper namespace="orm.mybatis.mapper.commonMapper"><!-- log4j.properties 파일안에 참조해야함. -->
+
+	<select id="zipcodeList" parameterType="map" resultType="map"> <!-- resultType에는 list의 타입이 아니라 로우의 타입이 와야한다. -->
+		SELECT zipcode, address FROM zipcode_t
+<!-- 동적 쿼리문을 지원한다. -->
+ 		<where>
+ 			<if test="dong!=null">
+ 				AND dong Like #{dong}||'%'
+ 			</if>
+ 		</where>
+	</select>
+
 	<select id="getZDOList" parameterType="map" resultType="map">
 	<!-- 이 곳에 올 select문은 직접 작성해보기. -->
 		SELECT distinct(zdo) FROM zipcode_t
 	</select>
+
 	<select id="getSiGuList" parameterType="map" resultType="map">
 	<!-- 이 곳에 올 select문은 직접 작성해보기. -->
 		SELECT distinct(sigu) sigu
@@ -20,6 +32,7 @@
 			</if>
 		</where>
 	</select>
+
 	<select id="getDongList" parameterType="map" resultType="map">
 	<!-- 이 곳에 올 select문은 직접 작성해보기. -->
 		SELECT 1 FROM dual

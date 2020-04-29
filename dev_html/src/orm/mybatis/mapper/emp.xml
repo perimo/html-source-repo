@@ -9,6 +9,7 @@
 		<if test="empno > 0">
 		 where empno = #{empno}
 		</if>
+		ORDER BY empno desc
 	</select>
 	
 	<!-- 
@@ -26,6 +27,21 @@
 	</select>
 	-->
 	
+	<insert id="empINS" parameterType="map">
+		INSERT INTO emp VALUES(#{empno}
+							  ,#{ename}
+							  ,#{job}
+							  ,#{mgr}
+							  ,#{hiredate}
+							  ,#{sal}
+							  ,#{comm}
+							  ,#{deptno}
+							  )
+	</insert>
+	<insert id="empINS2" parameterType="map">
+		INSERT INTO emp(empno) VALUES(#{empno})
+	</insert>
+
 	<delete id="empDelete" parameterType="map">
 		delete from emp
 		 where empno=#{empno} <!-- Map<String,Object> map.put("empno",7566); -->

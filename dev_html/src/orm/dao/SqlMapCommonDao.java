@@ -14,6 +14,30 @@ public class SqlMapCommonDao {
 	Logger logger = Logger.getLogger(SqlMapDeptDao.class);
 	SqlSessionFactory sqlMapper = null;
 	/**********************************
+	 * 주소 검색 - 우편번호 조회하기
+	 * @param pmap pmap.get("dong")
+	 * @return List<Map<String,Object>>
+	 * 업무설명 : 동 이름을 입력하면 조건검색을 통하여 구간검색 처리하기
+	 * 작성자 : 강감찬
+	 * 202년 4월 27일
+	 **********************************/
+	public  List<Map<String, Object>> zipcodeList(Map<String, Object> pmap){
+		logger.info("zipcodeList 호출 성공 "+pmap.get("dong"));
+		String resource = "orm/mybatis/Configuration.xml";//Configuration 안에 ip,port,user,pw 정보가 들어있고 그걸 resource에 담았다.
+		List<Map<String, Object>> zipcodeList = null;
+		try {
+			Reader reader = Resources.getResourceAsReader(resource);//inputStream느낌으로 resource(ip,port,user,pw)의 정보를 읽어와서 reader에 담았다.
+			sqlMapper = new SqlSessionFactoryBuilder().build(reader);//build는 컴파일의 느낌으로 reader정보를 받아와 인스턴스화로 SqlSessionFactory객체를 생성했다.
+			//sql문을 요청하기 위한 sqlSession객체 생성하기
+			SqlSession sqlSes = sqlMapper.openSession();//생성한 SqlSessionFactory 객체를 SqlSession에 담앗다.
+			zipcodeList = sqlSes.selectList("zipcodeList",pmap);
+			System.out.println("조회한 로우 수: "+zipcodeList.size());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}		
+		return zipcodeList;
+	}
+	/**********************************
 	 * 주소 검색 - 도 정보 조회하기
 	 * @param pmap
 	 * @return List<Map<String,Object>>
