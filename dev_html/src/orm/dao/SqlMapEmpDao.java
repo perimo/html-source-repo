@@ -1,6 +1,7 @@
 package orm.dao;
 
 import java.io.Reader;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,8 +30,8 @@ public class SqlMapEmpDao {
 			sqlMapper = new SqlSessionFactoryBuilder().build(reader);//build는 컴파일의 느낌으로 reader정보를 받아와 인스턴스화로 SqlSessionFactory객체를 생성했다.
 			//sql문을 요청하기 위한 sqlSession객체 생성하기
 			SqlSession sqlSes = sqlMapper.openSession();//생성한 SqlSessionFactory 객체를 SqlSession에 담앗다.
-			//result = sqlSes.update("empINS2",pMap);//insert문의 반환값을 알아보기 위한 테스트문장
-			result = sqlSes.update("empINS",pMap);
+			//result = sqlSes.insert("empINS2",pMap);//insert문의 반환값을 알아보기 위한 테스트문장-update로 해도된다.
+			result = sqlSes.insert("empINS",pMap);
 			//오토커밋 모드가 꺼진 상태가 디폴트이므로 반드시 커밋 해줘야지 디비에 반영된다.
 			sqlSes.commit();
 			logger.info("result: "+result);//executeUpdate()은 리턴값이 무조건 int
@@ -39,6 +40,63 @@ public class SqlMapEmpDao {
 		}
 		return result;
 	}
+	
+	/*************************************************************
+	 * 사원수정 구현하기.
+	 * sql문 - UPDATE emp SET ...... WHERE 컬럼명 = 값
+	 * @param pMap(사원번호,사원명,job,그룹코드,입사일자,급여,인센티브,부서번호)
+	 * @return
+	 *************************************************************/
+	public int empUPD(Map<String, Object> pMap) {
+		logger.info("empUPD 호출 성공");
+		int result = 0;
+		try {
+			Reader reader = Resources.getResourceAsReader(resource);//inputStream느낌으로 resource(ip,port,user,pw)의 정보를 읽어와서 reader에 담았다.
+			sqlMapper = new SqlSessionFactoryBuilder().build(reader);//build는 컴파일의 느낌으로 reader정보를 받아와 인스턴스화로 SqlSessionFactory객체를 생성했다.
+			//sql문을 요청하기 위한 sqlSession객체 생성하기
+			SqlSession sqlSes = sqlMapper.openSession();//생성한 SqlSessionFactory 객체를 SqlSession에 담앗다.
+			//result = sqlSes.update("empUPD2",pMap);//update문의 반환값을 알아보기 위한 테스트문장
+			result = sqlSes.update("empUPD",pMap);
+			//오토커밋 모드가 꺼진 상태가 디폴트이므로 반드시 커밋 해줘야지 디비에 반영된다.
+			sqlSes.commit();
+			logger.info("result: "+result);//executeUpdate()은 리턴값이 무조건 int
+		} catch (Exception e) {
+			e.printStackTrace();//힌트가 더 많다
+		}
+		return result;
+	}	
+
+	/*************************************************************
+	 * 사원삭제 구현하기.
+	 * sql문 - DELETE FROM 테이블명 WHERE 컬럼명 IN (값)
+	 * @param pMap(사원번호,사원명,job,그룹코드,입사일자,급여,인센티브,부서번호)
+	 * @return
+	 *************************************************************/
+	public int empDEL(String empnos[]) {
+		logger.info("empDEL 호출 성공");
+		int result = 0;
+		try {
+			Reader reader = Resources.getResourceAsReader(resource);//inputStream느낌으로 resource(ip,port,user,pw)의 정보를 읽어와서 reader에 담았다.
+			sqlMapper = new SqlSessionFactoryBuilder().build(reader);//build는 컴파일의 느낌으로 reader정보를 받아와 인스턴스화로 SqlSessionFactory객체를 생성했다.
+			List<Integer> list = new ArrayList<Integer>();
+			for (int i = 0; i < empnos.length; i++) {
+				logger.info(empnos[i]);
+				list.add(Integer.parseInt(empnos[i]));
+			}
+			//sql문을 요청하기 위한 sqlSession객체 생성하기
+			SqlSession sqlSes = sqlMapper.openSession();//생성한 SqlSessionFactory 객체를 SqlSession에 담앗다.
+			//result = sqlSes.update("empUPD2",pMap);//insert문의 반환값을 알아보기 위한 테스트문장-update로 해도된다.
+			result = sqlSes.delete("empDelete",list);
+			//오토커밋 모드가 꺼진 상태가 디폴트이므로 반드시 커밋 해줘야지 디비에 반영된다.
+			sqlSes.commit();
+			logger.info("result: "+result);//executeUpdate()은 리턴값이 무조건 int
+		} catch (Exception e) {
+			e.printStackTrace();//힌트가 더 많다
+		}
+		return result;
+	}
+
+	
 	public List<Map<String, Object>> empList(Map<String, Object> pMap) {//파라미터 타입에 대한 변수 pMap
 		logger.info("empList 호출 성공");//콘솔 로그에 자세하게 찍어준다.//info레벨이 가장 적합하다. log4j.propertise 파일에서 확인가능
 		//logger.debug("debug 호출 성공");
@@ -64,7 +122,8 @@ public class SqlMapEmpDao {
 		//eDao.empList(null);
 		Map<String,Object> pMap = new HashMap<>();
 		pMap.put("empno", 9010);
-		int result = eDao.empINS(pMap);
+		//int result = eDao.empINS(pMap);
+		int result = eDao.empUPD(pMap);
 		System.out.println("result: "+result);
 		
 	}

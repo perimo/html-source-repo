@@ -14,5 +14,5 @@ function cmm_window_popup(url,popupwidth,popupheight,popupname){
 	options = "location=yes, fullscreen=no, status=no";
 	options += ", left="+Left+", top="+Top;
 	options += ", width="+popupwidth+", height="+popupheight;
-	popupname = window.open(url,popupname,options);
+	popupname = window.open(url,popupname,options);//window.open(주소,타켓(어디에 띄울지),창 속성)//자바스크립트에서 제공하는 내장 객체
 }

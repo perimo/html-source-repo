@@ -11,5 +11,5 @@
 //여기는 처리 주체가 사용자의 컴퓨터이다.
 // - 클라이언트측
 	$(opener.location).attr("href","javascript:fun();"); //jQuery사용
-	self/close();
+	self.close();
 </script>

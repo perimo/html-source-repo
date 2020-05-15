@@ -4,19 +4,51 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>사원관리 - [jEasyUI활용]</title>
+<title>사원관리 - [페이지 처리]</title>
 <!--디렉티브 방식으로 변경 - 현재파일에  파일을 삽입시키므로  include 된 파일은 컴파일 저장 위치에서 확인할 수 없다. -->
 <%@ include file="./JEasyUICommon.jsp"%>	
 	<script type="text/javascript">
 		//여기가 전역변수 자리이다.
+		//전역 변수는 그 페이지 내에서 계속 유지되므로 업무 프로세스가 새로 시작할 땐 처음값으로 반드시 초기화
 		var g_address='';//사용자가 선택한 주소 정보 담기
+		var g_cnt = 0;//수정 시 한 건만 선택 되었는지 체크함.
+		var g_empno = 0;
+		//등록화면 열기
 		function empINS(){//사원 등록 이벤트 처리
 			//insert here
 			$("#dlg_ins").dialog('open');
-		}
+		}///////////end of empINS
+		//수정화면 열기
 		function empUPD(){
+			if(g_cnt>1){
+				$.messager.alert('Info','한번에 한건만 수정할 수 있습니다.');
+				empList();
+				return;//empUPD함수 탈출
+			}
+			if(g_empno==0){
+				$.messager.alert('Info','수정 할 사원을 선택하세요.');
+				return;//empUPD함수 탈출
+			}
+			else{
+				$.ajax({
+					url:'jsonEmpList.jsp?empno='+g_empno
+				   ,success:function(data){//조회된 결과는 파라미터(data)로 가져온다.
+					   var result = JSON.stringify(data);
+				   	   var arr = JSON.parse(result);
+				   	   for(var i=0;i<arr.length;i++){//값을 받아올 때 myBatis 사용시에는 디폴트로 대문자를 받아오기 떄문에 대문자로 처리해야한다.
+				   		   $("#u_empno").numberbox('setValue',arr[i].EMPNO);//number->numberbox
+				   		   $("#u_ename").textbox('setValue',arr[i].ENAME);//varchar->textbox
+				   		   $("#u_job").textbox('setValue',arr[i].JOB);
+				   		   $("#u_hiredate").textbox('setValue',arr[i].HIREDATE);
+				   		   $("#u_sal").numberbox('setValue',arr[i].SAL);
+				   		   $("#u_comm").numberbox('setValue',arr[i].COMM);
+				   		   $("#u_deptno").combobox('setValue',arr[i].DEPTNO);
+				   	   }
+				   }
+				});
+			}
 			$("#dlg_upd").dialog('open');
-		}
+		}///////////end of empUPD
 		function empnoSearch(){
 			//alert("empnoSearch 호출 성공");
 			var s_empno = $("#s_empno").val();
@@ -25,6 +57,8 @@
 			});
 		}
 		function empList(){//아래 html 태그 코드를 이렇게 JS코드로 바꿀 수 있다.
+			//조회될 때마다 새로 업무가 시작되도록 전역변수 초기화 해줄것.
+			g_cnt = 0;
 			$("#dg_emp").datagrid({
 				url:"http://localhost:8000/jEasyUI/day5/jsonEmpList.jsp"//새로고침 처리
 			   ,onLoadSuccess: function(data){
@@ -88,6 +122,21 @@
 			$("#f_upd").attr("action","empUpdate.jsp");
 			$("#f_upd").submit();
 		}
+		//사원정보 삭제 처리
+		function emp_del(){
+			var empnos = [];
+			var rows = $('#dg_emp').datagrid('getSelections');
+			for(var i=0; i<rows.length; i++){
+			    empnos.push(rows[i].EMPNO);
+			}
+			//alert(empnos.join(','));
+			pempno = empnos.join(',');
+			$.messager.progress();//막대기 바 0%~100%
+			if(empnos.length>0){
+				location.href="empDelete.jsp?empno="+pempno
+			}
+			$("dg_emp").datagrid('clearSelections');
+		}
 	</script>
 </head>
 <body>
@@ -106,7 +155,7 @@
 			        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-search" plain="true" onclick="empList()">사원조회</a>
 			        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-man" plain="true" onclick="empINS()">사원등록</a>
 			        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="empUPD()">사원수정</a>
-			        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="empDEL()">사원삭제</a>				
+			        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="emp_del()">사원삭제</a>				
 				</td>
 			</tr>
 		</table>
@@ -114,6 +163,15 @@
 </div>
 <!--============================= 검색 조건 추가하기 끝     ============================= -->
 	<table id="dg_emp"></table>
+	<!-- <div id="pp_emp" class="easyui-pagination" style="width:1100px"> -->
+	<div id="pp_emp" class="easyui-pagination" style="border:1px solid #ccc;"
+        data-options="total: 21
+            		 ,pageSize: 5
+            		 ,pageList: [2,3,5,10]
+            		 ,onSelectPage: function(pageNumber, pageSize){
+                		$('#content').panel('refresh', 'show_content.php?page='+pageNumber);
+            		  }">
+	</div>
 	<script type="text/javascript">
 		$(document).ready(function(){//DOM구성이 완료되었을 때
 			//$('#empno').textbox("labelPosition","top");//무조건 이렇게 스크립트로 바꾸는게 다 좋은건 아니다. 아래쪽에 태그에서 바로 속성을 주는게 더 간단한 경우들도 있다.
@@ -125,7 +183,7 @@
 					//t.textbox('setValue', $(this).val());//easyui-API
 					$("#dg_zipcode").datagrid({
 						url:'jsonZipCodeList.jsp?dong=' + $(this).val()
-					   ,singleSelect:true
+					   //,singleSelect:true
 					   //선택한 로우의 우편번호와 주소 정보 읽어서 변수에 담기 처리
 					   ,onSelect:function(index,row){//여기서 말하는 로우는 사용자가 선택한 로우의 정보를 가지고 있다.
 						   //아래에서 선택된 로우인지는 어떻게 아는걸까?
@@ -160,7 +218,7 @@
 				  ,{field:'ADDRESS', title:'주소', width:400, align:'left'}
 				   
 			   ]]
-			})
+			});
 			
 			/* 우편번호 찾기 버튼*/
 			$('#btn_zipcode').linkbutton({
@@ -171,13 +229,22 @@
 					   ,title: '우편번호 검색기'//클릭시 변경된 다이얼로그창의 타이틀
 					});
 				}
-			})
+			});
+			
 			$('#dlg_upd').dialog({//사원등록 html코드처럼 되어있던걸 사원수정은 자바스크립트로 바꿔보기
 				closed:true
 			});
+			
+			$('#pp_emp').pagination({//페이지 처리
+			    total:2000,
+			   pageList: [2,3,5,10]
+			  ,pageSize:5			
+			});
+			
 			$('#dg_emp').datagrid({
 				toolbar:'#tbar_emp'
-			   ,singleSelect:true
+			   //,pagination:'#pp_emp'
+			   //,singleSelect:true
 			   ,title: '사원관리 - 자바스크립트만으로 구성하기'
 			   ,width: '1100px'
 			   //,url:'jsonEmpList.jsp'//최초 페이지가 열릴 때 DB를 다녀오지 못하게 해서 정보가 뜨지 않게하기위해 주석처리.
@@ -236,7 +303,11 @@
 	            $(this).datagrid('refreshRow', index);
 	        },
 	        onClickRow:function(index,row){
-				alert("선택했네 --> "+index+", "+row.EMPNO);
+				//alert("선택했네 --> "+index+", "+row.EMPNO);
+	        	g_cnt++;//로우를 선택하는 부분이 여기니까
+	        	if(g_cnt == 1){//한개 로우만 선택 했을 때 수정 가능하게 한다.
+	        		g_empno = row.EMPNO;//선택한 값은 여기서 담기지만 처리는 위에서 해야하기 떄문에 전역변수로 초기화
+	        	}
 	        }
 			});//////////////////end of datagrid
 		});//////////////////////end of ready
@@ -253,7 +324,7 @@
 	<div id="dlg_ins" data-options="closed:true, title:'사원정보 등록', footer:'#d_ins', modal:'true'" class="easyui-dialog" style="width:100%; max-width:480px; padding:30px 60px">
 		<form id="f_ins">
 			<div style="margin-bottom:10px">
-			<input class="easyui-textbox" id="empno" name="empno" label="사원번호" data-options="prompt:'Enter a EmpNO'" style="width:250px"><!--prompt: 는 텍스트필드에 흐릿하게 되어있는 디폴ㅌ 메시지  -->
+			<input class="easyui-numberbox" id="empno" name="empno" label="사원번호" data-options="prompt:'Enter a EmpNO'" style="width:250px"><!--prompt: 는 텍스트필드에 흐릿하게 되어있는 디폴ㅌ 메시지  -->
 			</div>
 			<div style="margin-bottom:10px">
 			<input class="easyui-textbox" id="ename" name="ename" label="사원명" data-options="prompt:'Enter a ENAME'" style="width:250px">
@@ -295,28 +366,28 @@
 	</div>
 	<!-- =========================== 사원 등록 끝   =================================== -->
 	<!-- =========================== 사원 수정 시작 =================================== -->
-	<div id="dlg_upd" data-options="closed:true, title:'사원정보 등록', footer:'#d_upd', modal:'true'" class="easyui-dialog" title="사원 정보 수정" style="width:100%; max-width:480px; padding:30px 60px">
+	<div id="dlg_upd" data-options="closed:true, title:'사원정보 수정', footer:'#d_upd', modal:'true'" class="easyui-dialog" title="사원 정보 수정" style="width:100%; max-width:480px; padding:30px 60px">
 		<form id="f_upd">
 			<div style="margin-bottom:10px">
-			<input class="easyui-textbox" id="empno" name="empno" label="사원번호" data-options="prompt:'Enter a EmpNO'" style="width:250px"><!--prompt: 는 텍스트필드에 흐릿하게 되어있는 디폴ㅌ 메시지  -->
+			<input class="easyui-numberbox" id="u_empno" name="empno" label="사원번호" data-options="prompt:'Enter a EmpNO'" style="width:250px"><!--prompt: 는 텍스트필드에 흐릿하게 되어있는 디폴ㅌ 메시지  -->
 			</div>
 			<div style="margin-bottom:10px">
-			<input class="easyui-textbox" id="ename" name="ename" label="사원명" data-options="prompt:'Enter a ENAME'" style="width:250px">
+			<input class="easyui-textbox" id="u_ename" name="ename" label="사원명" data-options="prompt:'Enter a ENAME'" style="width:250px">
 			</div>
 			<div style="margin-bottom:10px">
-			<input class="easyui-textbox" id="job" name="job" label="JOB" data-options="prompt:'Enter a JOB'" style="width:250px">
+			<input class="easyui-textbox" id="u_job" name="job" label="JOB" data-options="prompt:'Enter a JOB'" style="width:250px">
 			</div>
 			<div style="margin-bottom:10px">
-			<input class="easyui-textbox" id="hiredate" name="hiredate" label="입사일자" data-options="prompt:'Enter a 입사일자'" style="width:250px">
+			<input class="easyui-textbox" id="u_hiredate" name="hiredate" label="입사일자" data-options="prompt:'Enter a 입사일자'" style="width:250px">
 			</div>
 			<div style="margin-bottom:10px">
-			<input class="easyui-numberbox" id="sal" name="sal" label="급여" data-options="prompt:'Enter a 급여'" style="width:250px">
+			<input class="easyui-numberbox" id="u_sal" name="sal" label="급여" data-options="prompt:'Enter a 급여'" style="width:250px">
 			</div>			
 			<div style="margin-bottom:10px">
-			<input class="easyui-numberbox" id="comm" name="comm" label="인센티브"  data-options="prompt:'Enter a 인센티브'" style="width:250px">
+			<input class="easyui-numberbox" id="u_comm" name="comm" label="인센티브"  data-options="prompt:'Enter a 인센티브'" style="width:250px">
 			</div>			
 			<div style="margin-bottom:10px">
-			<input class="easyui-combobox" id="deptno" name="deptno" label="부서번호"  style="width:250px"
+			<input class="easyui-combobox" id="u_deptno" name="deptno" label="부서번호"  style="width:250px"
 			data-options="prompt:'Enter a 부서번호' 
         				 ,valueField: 'DEPTNO'
         				 ,textField: 'DNAME'
@@ -326,11 +397,11 @@
 			>
 			</div>
 			<div style="margin-bottom:10px">
-			<input class="easyui-textbox" id="zipcode" name="zipcode" label="우편번호" labelPosition="top" data-options="prompt:'Enter a ZIPCODE'" style="width:120px">
+			<input class="easyui-textbox" id="u_zipcode" name="zipcode" label="우편번호" labelPosition="top" data-options="prompt:'Enter a ZIPCODE'" style="width:120px">
 			<a id="btn_zipcode" href="#" class="easyui-linkbutton">우편번호찾기</a>
 			</div>
 			<div style="margin-bottom:10px">
-			<input class="easyui-textbox" id="mem_addr" name="mem_addr" label="주소" labelPosition="top" data-options="prompt:'Enter a ADDRESS'" style="width:400px">
+			<input class="easyui-textbox" id="u_mem_addr" name="mem_addr" label="주소" labelPosition="top" data-options="prompt:'Enter a ADDRESS'" style="width:400px">
 			</div>
 		</form>
 		<div id="d_upd" style="margin-bottom: 10px">
@@ -339,6 +410,17 @@
 		</div>
 		</form>	
 	</div>
+<%
+	//수정 처리가 완료 된거니?
+	String mode = request.getParameter("mode");//페이지가 이동하면 값은 넘어가지 않지만 response.sendRedirect(URL?mode=update)로 get방식으로 값을 가지고 넘어온다.
+	if("update".equals(mode)){//if문의 조건 걸듯이 update와 mode의 값이 같다면 true로 if문 진입해서 새로고침.
+%>
+	<script type="text/javascript">
+		empList();//수정이 끝났을때 새로고침을 해주는 함수를 호출 해줘야한다.
+	</script>
+<%
+	}
+%>
 	<!-- =========================== 사원 수정 끝   =================================== -->
 	<!-- =========================== 사원 삭제 시작 =================================== -->
 	<div id="dlg_del" data-options="closed:true" class="easyui-dialog" style="width:100%; max-width:480px; padding:30px 60px">

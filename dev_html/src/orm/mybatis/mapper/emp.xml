@@ -27,6 +27,35 @@
 	</select>
 	-->
 	
+	<update id="empUPD" parameterType="map">
+		UPDATE emp
+    	 SET
+    	<if test="ename!=null">
+    	 	ename    = #{ename}
+    	</if>  
+    	 
+    	<if test="job!=null">
+       		,job      = #{job}
+    	</if>  
+       	
+    	<if test="hiredate!=null">
+       		,hiredate = #{hiredate}
+    	</if>  
+       		
+    	<if test="sal>0">
+       		,sal      = #{sal}
+    	</if>  
+       	
+    	<if test="comm>0">
+       		,comm     = #{comm}
+    	</if>  
+		<where>
+			<if test="empno>0">
+		 	and empno  = #{empno}
+			</if>
+		</where>
+	</update>
+	
 	<insert id="empINS" parameterType="map">
 		INSERT INTO emp VALUES(#{empno}
 							  ,#{ename}
@@ -38,12 +67,23 @@
 							  ,#{deptno}
 							  )
 	</insert>
+	
 	<insert id="empINS2" parameterType="map">
 		INSERT INTO emp(empno) VALUES(#{empno})
 	</insert>
 
-	<delete id="empDelete" parameterType="map">
+	<delete id="empDelete2" parameterType="map">
 		delete from emp
 		 where empno=#{empno} <!-- Map<String,Object> map.put("empno",7566); -->
 	</delete>
+	
+	<delete id="empDelete" parameterType="list">
+		DELETE FROM emp
+		 WHERE empno IN
+		 <foreach item="item" index="index" collection="list"
+			open="(" separator="," close=")">
+		 		#{item}
+		 </foreach>
+	</delete>
+	
 </mapper>
